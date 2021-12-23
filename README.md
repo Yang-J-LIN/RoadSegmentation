@@ -26,3 +26,28 @@ conda install --name RoadSegmentation --file requirements.txt
 3. Download the required dataset. The training set and test set are available on [Road Segmentation Challenge on AICrowd](https://www.aicrowd.com/challenges/epfl-ml-road-segmentation). DeepGlobe dataset is used as external dataset. The DeepGlobe road images are selected and cropped, which can be downloaded from https://drive.google.com/file/d/187NBB0GzuoQ8bAaFdZuaxebvdnvQD4-J/view?usp=sharing.
 
 ## Running the code
+To train the model, run:
+
+`
+python main.py \
+    --images_dir=/PATH/TO/IMAGEDIR
+    --groundtruth_dir=/PATH/TO/GROUNDTRUTHDIR
+    --learning_rate=LEARNING_RATE
+    --cuda=True/False
+    --test=True/False
+    --load_model=/PATH/TO/LOADED/MODEL
+    --save_model=/PATH/TO/SAVED/MODEL
+`
+
+## Reproduction
+1. Pretrain on the external dataset:
+`
+python main.py --images_dir="train4/images" --groundtruth_idr="train4/groundtruth" --save_model="pretrained_model.pt"
+`
+
+2. Finetuning on our dataset:
+
+`
+python main.py --images_dir="training/images" --groundtruth_idr="training/groundtruth" --load_model="pretrained_model.pt" --save_model="model.pt"
+`
+
